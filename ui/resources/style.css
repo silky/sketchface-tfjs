@@ -1,0 +1,80 @@
+
+h1 {
+  font-family: "Playfair Display";
+  font-weight: normal;
+  color: black;
+  border-bottom: solid 5px gold;
+}
+
+h1, h2, h3, h4 {
+  font-weight: normal
+}
+
+h2, h3, h4 {
+  font-family: "Roboto Mono"
+}
+
+h3.info {
+  background: #bce4ff;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: black;
+}
+
+.footer-text {
+  max-width: 600px;
+  text-align: center;
+  margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .footer-text, .dg {
+    display: none;
+  }
+}
+
+#video {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  display: none;
+}
+
+#main, #info {
+  display: none;
+}
+
+#main {
+  display:   flex;
+  flex-flow: column;
+}
+
+div.row {
+  display:         flex;
+  flex-flow:       row;
+  justify-content: center;
+}
+
+div.col {
+  display:     flex;
+  flex-flow:   column;
+  align-items: center;
+  margin:      20px;
+}
+
+h3.middle {
+  width:      300px;
+}
+
+#count {
+  font-size:   4em;
+  padding:     10px;
+  font-family: "Shrikhand";
+  color:       magenta;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sketch Face</title>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Noto+Serif+SC|Playfair+Display" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../resources/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <div id="info" style="display: none">
+  </div>
+
+  <div id="loading">
+    <h3>Loading the model...</h3>
+  </div>
+
+  <div id="main">
+    <h1> Sketch Face </h1>
+    <div class="row">
+      <div class="col">
+        <div>
+          <video id="video" playsinline> </video>
+          <canvas id="output" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+  </div>
+
+  <img id="eye1" src="../resources/e1.png" style="display: none;" />
+  <img id="eye2" src="../resources/e2.png" style="display: none;" />
+  <img id="mouth" src="../resources/mouth.png" style="display: none;" />
+
+  <script src="index.js"></script>
+</body>
+</html>
