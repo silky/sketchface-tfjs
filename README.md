@@ -1,3 +1,3 @@
-# TensorFlow JS Web Eyes
+# TensorFlow JS SketchFace
 
 
