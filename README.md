@@ -10,11 +10,12 @@ cd ui
 yarn install
 ```
 
-# Running
+# Running & Building
 
 In the `ui` folder:
 
 ```
+yarn build
 python3 -m http.server 8003
 ```
 
