@@ -1,4 +1,6 @@
-# TensorFlow JS SketchFace
+# TensorFlow JS SketchFace: <https://silky.github.io/sketchface-tfjs/>
+
+[Online](https://silky.github.io/sketchface-tfjs/)
 
 ![](./images/screenshot_1.jpg)
 
@@ -20,7 +22,6 @@ python3 -m http.server 8003
 ```
 
 Then, navigate to <http://localhost:8003/dist/index.html>.
-
 
 
 # License
