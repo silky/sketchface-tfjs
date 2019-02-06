@@ -27,29 +27,23 @@ import * as posenet from '@tensorflow-models/posenet';
 import ndjsonStream from 'can-ndjson-stream';
 
 export function parseSimplifiedDrawings(url, callback) {
-
   fetch(url).
     then( function(response) {
       return response.body;
     }).
     then( function(body) {
-      // console.log("body", body);
       const stream = ndjsonStream(body);
-      // body.getReader();
       var drawings = [];
 
       const reader = stream.getReader();
       let read;
-        // console.log("start of stream");
       reader.read().then(read = (result) => {
         if (result.done) {
-          console.log("Read all jsons");
-          console.log(drawings.length);
+          callback(false, drawings);
           return;
         }
 
         drawings.push(result.value);
-        // console.log(result.value);
         reader.read().then(read);
       });
     });

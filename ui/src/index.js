@@ -42,6 +42,7 @@ function isMobile() {
  * Loads a the camera to be used in the demo
  */
 async function setupCamera() {
+
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
     throw new Error(
         'Browser API navigator.mediaDevices.getUserMedia not available');
@@ -72,7 +73,6 @@ async function setupCamera() {
 async function loadVideo() {
   const video = await setupCamera();
   video.play();
-
   return video;
 }
 
@@ -307,16 +307,21 @@ function detectPoseInRealTime(video, net) {
         const leftEye  = getPart(keypoints, "leftEye");
         const rightEye = getPart(keypoints, "rightEye");
 
-        [[leftEye, eye1], [rightEye, eye2]].forEach( ([e, im]) => {
+        [[leftEye, eye1], [rightEye, eye2]].forEach( ([e, im_]) => {
           if(e){
-            ctx.drawImage(im, e.position.x - 20, e.position.y - 30);
+            var im = newThing(50, eyeDrawings, "c_eye1");
+            if( im ){
+              // ctx.drawImage(im, e.position.x - 20, e.position.y - 30);
+              ctx.putImageData(im, e.position.x - 20, e.position.y - 30);
+            }
           }
         });
 
         const nose = getPart(keypoints, "nose");
 
         if(nose){
-            ctx.drawImage(mouth, nose.position.x - 20, nose.position.y + 15);
+          var im = newThing(70, mouthDrawings, "c_mouth");
+          ctx.putImageData(im, nose.position.x - 20, nose.position.y + 15);
         }
 
         // drawSkeleton(keypoints, minPartConfidence, ctx, scaleFactor);
@@ -325,22 +330,67 @@ function detectPoseInRealTime(video, net) {
 
     // End monitoring code for frames per second
     stats.end();
-
     requestAnimationFrame(poseDetectionFrame);
   }
 
   poseDetectionFrame();
+}
 
 
-  parseSimplifiedDrawings("static/ndjson/eye.ndjson", function(err, drawings) {
-    if(err) return console.error(err);
-    drawings.forEach(function(d) {
-      // Do something with the drawing
-      console.log(d.key_id, d.countrycode);
-    })
-    console.log("# of drawings:", drawings.length);
+function newThing (desired, list_, elt) {
+  var factor = 255 / desired;
+
+  if( list_.length <= 0 ) {
+    return;
+  }
+
+  const index  = Math.round( Math.random() * list_.length );
+  const sketch = list_[index];
+
+  const c1   = document.getElementById(elt);
+  const ctx = c1.getContext("2d");
+
+  ctx.clearRect(0, 0, desired, desired);
+
+  if ( sketch ) { 
+    sketch.drawing.forEach( ( [xs, ys] ) => {
+      ctx.beginPath();
+
+      for (var i = 0; i < xs.length; i++) {
+        var x = xs[i] / factor;
+        var y = ys[i] / factor;
+
+        if( i == 0 ) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+
+      ctx.stroke();
+    });
+  }
+
+  return ctx.getImageData(0, 0, desired, desired);
+}
+
+
+var eyeDrawings   = [];
+var mouthDrawings = [];
+
+
+async function setupThing (thing, list_) {
+  parseSimplifiedDrawings("static/ndjson/" + thing + ".ndjson", function(err, drawings) {
+    if (err) {
+      return console.error(err);
+    }
+
+    drawings.forEach( d => list_.push(d) )
+
+    // eyeDrawings = drawings;
   });
 }
+
 
 /**
  * Kicks off the demo by loading the posenet model, finding and loading
@@ -366,6 +416,8 @@ export async function bindPage() {
   }
 
   setupGui([], net);
+  setupThing("eye", eyeDrawings);
+  setupThing("mouth", mouthDrawings);
   // No FPS for now
   // setupFPS();
   detectPoseInRealTime(video, net);
