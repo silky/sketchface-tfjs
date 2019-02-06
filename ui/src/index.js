@@ -321,7 +321,9 @@ function detectPoseInRealTime(video, net) {
 
         if(nose){
           var im = newThing(70, mouthDrawings, "c_mouth");
-          ctx.putImageData(im, nose.position.x - 20, nose.position.y + 15);
+          if ( im ) {
+            ctx.putImageData(im, nose.position.x - 20, nose.position.y + 15);
+          }
         }
 
         // drawSkeleton(keypoints, minPartConfidence, ctx, scaleFactor);
