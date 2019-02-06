@@ -23,6 +23,21 @@ python3 -m http.server 8003
 
 Then, navigate to <http://localhost:8003/dist/index.html>.
 
+# Todo
+
+- [ ] Don't require the video to be auto-played
+- [ ] Allow a GIF to be recorded
+
+
+
+
+
+
+
+
+
+
+
 
 # License
 
@@ -32,6 +47,5 @@ The pose inference model, and associated JavaScript, comes from the
 their license.
 
 This code is Licensed under the [LICENSE](LICENSE).
-
 
 
